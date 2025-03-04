@@ -2,7 +2,7 @@ import fs from "fs";
 import fsP from "fs/promises";
 import matter from "gray-matter";
 import path from "path";
-import { CheckRepoActions, type SimpleGit, simpleGit } from "simple-git";
+import { CheckRepoActions, GitError, type SimpleGit, simpleGit } from "simple-git";
 
 import { config } from "@/config";
 import { type Group } from "@/lib/model/Group";
@@ -221,18 +221,26 @@ export class SimpleGitRepo implements IGitRepo {
     startupId: IGitRepo.StartupId,
     variableId: IGitRepo.VariableId,
     templateType: TemplateType,
-  ): Promise<Variable> {
+  ): Promise<Variable | null> {
     await this.init();
 
-    const raw = await this.git.show([`HEAD:${VARIABLE_DIR}/${startupId}/${variableId}/${templateType}.${CONFIG_EXT}`]);
-    const variable = validateVariable(JSON.parse(raw) as Variable);
+    const filePath = `${VARIABLE_DIR}/${startupId}/${variableId}/${templateType}.${CONFIG_EXT}`;
+    try {
+      const raw = await this.git.show([`HEAD:${filePath}`]);
+      const variable = validateVariable(JSON.parse(raw) as Variable);
 
-    return {
-      ...variable,
-      gitProviderUrl: this.getGitUrlForVariable({ startupId, templateType, variableId: variableId }),
-      path: path.resolve(this.tmpdir, VARIABLE_DIR, startupId, variableId, `${templateType}.${CONFIG_EXT}`),
-      url: `${config.host}/startup/${startupId}${variableId === "default" ? "" : `/${variableId}`}/${templateType}`,
-    };
+      return {
+        ...variable,
+        gitProviderUrl: this.getGitUrlForVariable({ startupId, templateType, variableId: variableId }),
+        path: path.resolve(this.tmpdir, VARIABLE_DIR, startupId, variableId, `${templateType}.${CONFIG_EXT}`),
+        url: `${config.host}/startup/${startupId}${variableId === "default" ? "" : `/${variableId}`}/${templateType}`,
+      };
+    } catch (error: unknown) {
+      if (error instanceof GitError && error.message.includes(`'${filePath}'`)) {
+        return null;
+      }
+      throw error;
+    }
   }
 
   public async saveTemplate(
@@ -332,9 +340,7 @@ export class SimpleGitRepo implements IGitRepo {
     return groups;
   }
 
-  public async getAllVariables(): Promise<IGitRepo.AllVariables> {
-    await this.init();
-
+  private async getVariablesFromFiles(params?: { filterByStartup?: string[] }): Promise<IGitRepo.AllVariables> {
     const files = await fsP.readdir(this.variableBasePath, {
       recursive: true,
       withFileTypes: true,
@@ -352,6 +358,9 @@ export class SimpleGitRepo implements IGitRepo {
       // also the key in the first level of the Record will be "${startupId}-${productId}"
       // if productId is not present, the key will be just "${startupId}"
       const [variableId, startupId] = f.parentPath.split("/").reverse() as [IGitRepo.VariableId, IGitRepo.StartupId];
+      if (params?.filterByStartup && !params?.filterByStartup.includes(startupId)) {
+        continue;
+      }
       const [type] = f.name.split(".") as [TemplateType, string];
       const filePath = path.resolve(this.variableBasePath, startupId, variableId, f.name);
       const content = await fsP.readFile(filePath, { encoding: "utf-8" });
@@ -371,6 +380,18 @@ export class SimpleGitRepo implements IGitRepo {
     }
 
     return variables;
+  }
+
+  public async getAllVariables(): Promise<IGitRepo.AllVariables> {
+    await this.init();
+
+    return this.getVariablesFromFiles();
+  }
+
+  public async getStartupVariables(startupId: IGitRepo.StartupId): Promise<IGitRepo.StartupVariables> {
+    await this.init();
+
+    return (await this.getVariablesFromFiles({ filterByStartup: [startupId] }))[startupId];
   }
 
   public async seed(): Promise<void> {

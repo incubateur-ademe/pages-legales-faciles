@@ -20,4 +20,9 @@
     ".env*": "dotenv",
   },
   "mdx.server.enable": true,
+  "typescript.preferences.autoImportSpecifierExcludeRegexes": [
+    "^node",
+    "^postcss",
+    "^@codegouvfr/react-dsfr/fr/cx$",
+  ]
 }

@@ -25,6 +25,7 @@ export interface IGitRepo {
   getAllVariables(): Promise<IGitRepo.AllVariables>;
   getGroup(groupId: string): Promise<Group | null>;
   getGroups(): Promise<Group[]>;
+  getStartupVariables(startupId: IGitRepo.StartupId): Promise<IGitRepo.StartupVariables>;
   getTemplate(groupId: string, type: TemplateType, templateVersion?: GitSha7): Promise<Template>;
   getTemplateRaw(groupId: string, type: TemplateType, templateVersion?: GitSha7): Promise<string>;
   getTemplatesForGroup(groupId: string): Promise<Template[]>;
@@ -32,7 +33,7 @@ export interface IGitRepo {
     startupId: IGitRepo.StartupId,
     variableId: IGitRepo.VariableId,
     templateType: TemplateType,
-  ): Promise<Variable>;
+  ): Promise<Variable | null>;
   saveGroup(group: Group): Promise<void>;
   saveTemplate(
     template: Template,

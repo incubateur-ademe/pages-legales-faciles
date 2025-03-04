@@ -253,10 +253,10 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.33.5.tgz#56f00962ff0c4e0eb93d34a047d29fa995e3e342"
   integrity sha512-MpY/o8/8kj+EcnxwvrP4aTJSWw/aZ7JIGR4aBeZkZw5B7/Jn+tY9/VNwtcoGmdT7GfggGIU4kygOMSbYnOrAbg==
 
-"@incubateur-ademe/next-auth-espace-membre-provider@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@incubateur-ademe/next-auth-espace-membre-provider/-/next-auth-espace-membre-provider-0.1.4.tgz#a47e7e39eb6b8cd8d069d8748652ba05fc2d6746"
-  integrity sha512-zehPP753YigfegjyJ5INWoXfLe3rSP4iO/YMm7lr+RXEqvPLsWIm4QTMpVH8gRkrHzgZcJ8a8CrGRS+lq0zd1w==
+"@incubateur-ademe/next-auth-espace-membre-provider@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@incubateur-ademe/next-auth-espace-membre-provider/-/next-auth-espace-membre-provider-0.2.1.tgz#3340f317326dc32e5933257ced05ba99e4e6218d"
+  integrity sha512-ErHaabeLdb96sH1Okav3zGNfQsnZiwltr9O2Zx4T34PIu040iAsV8g7SgZICwmdp3j0N4UtDrVURAaeVHRBpVg==
 
 "@ioredis/commands@^1.1.1":
   version "1.2.0"
@@ -5279,11 +5279,6 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-sync-external-store@^1.2.2:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.4.0.tgz#adbc795d8eeb47029963016cefdf89dc799fcebc"
-  integrity sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==
-
 util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
@@ -5430,12 +5425,10 @@ zod@^3.23.8:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.24.1.tgz#27445c912738c8ad1e9de1bea0359fa44d9d35ee"
   integrity sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==
 
-zustand@^4.5.5:
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.5.6.tgz#6857d52af44874a79fb3408c9473f78367255c96"
-  integrity sha512-ibr/n1hBzLLj5Y+yUcU7dYw8p6WnIVzdJbnX+1YpaScvZVF2ziugqHs+LAmHw4lWO9c/zRj+K1ncgWDQuthEdQ==
-  dependencies:
-    use-sync-external-store "^1.2.2"
+zustand@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-5.0.3.tgz#b323435b73d06b2512e93c77239634374b0e407f"
+  integrity sha512-14fwWQtU3pH4dE0dOpdMiWjddcH+QzKIgk1cl8epwSE7yag43k/AD/m4L6+K7DytAOr9gGBe3/EXj9g7cdostg==
 
 zwitch@^2.0.0:
   version "2.0.4"

@@ -75,5 +75,35 @@
 - [ ] Filtre par type (qui a mentions légales, politique de confidentialité, etc)
 - [ ] Bouton pour ajouter une page légale à une startup `/startup/[id]/new`
 
+---
+## Page "new variables" / "new page"
+### Points d'entrée
+- depuis la liste des startups
+  - `/variables/[startupId]/new`
+  - `/variables/[startupId]/[templateType]/new`
+- depuis une page de startup
+  - `/variables/[startupId]/new`
+  - `/variables/[startupId]/[templateType]/new`
+- depuis la liste des templates
+  - `/template/[groupId]/[templateType]/generate`
+- depuis un template
+  - `/template/[groupId]/[templateType]/[sha]/generate`
+- depuis la home
+  - `/variables/new`
+- depuis une page de variable (utiliser le même template)
+  - `/template/[groupId]/[templateType]/[sha]/generate`
+
+### Liste de urls
+- [ ] `/variables/new`
+- [ ] `/variables/[startupId]/new`
+- [ ] `/variables/[startupId]/[templateType]/new`
+- [ ] `/template/[groupId]/[templateType]/generate`
+- [ ] `/template/[groupId]/[templateType]/[sha]/generate`
+
+Alternative : `/variables/new?startupId=123&templateType=mentions-legales`
+Conditions :
+- sha ne peut être présent que si groupId et templateType sont renseignés
+
+
 
 

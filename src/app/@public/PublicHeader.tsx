@@ -15,8 +15,8 @@ export const PublicHeader = () => (
       <>
         {config.brand.name}
         &nbsp;
-        <Badge as="span" noIcon severity="success">
-          Beta
+        <Badge as="span" noIcon severity="warning">
+          Alpha
         </Badge>
         {config.maintenance && (
           <Badge as="span" noIcon severity="warning">

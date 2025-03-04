@@ -3,6 +3,7 @@ import {
   type IncubatorWithMembers,
   type IncubatorWithStartups,
   type Member,
+  type StartupWithIncubator,
 } from "@incubateur-ademe/next-auth-espace-membre-provider/EspaceMembreClient";
 
 import { config } from "@/config";
@@ -58,5 +59,9 @@ export class EspaceMembreService implements Service {
         },
       },
     );
+  }
+
+  public async getStartupByGhid(ghid: string): Promise<StartupWithIncubator> {
+    return this.client.startup.getByGhid(ghid);
   }
 }

@@ -60,7 +60,7 @@ export const StartupGrid = ({ startups, variables, member, isInAnimation, showDe
                               isNew
                               key={`${startup.uuid}-${variableId}-${templateType}`}
                               type={templateType}
-                              linkProps={{ href: `/startup/${startup.ghid}/${templateType}/new` }}
+                              linkProps={{ href: `/variables/${startup.ghid}/${templateType}/new` }}
                               disabled={disableTag as never}
                             />
                           );

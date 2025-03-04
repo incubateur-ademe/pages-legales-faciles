@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { type UniqueString } from "@/utils/types";
 
-export const GitSha7 = z.string().regex(/^[0-9a-f]{7}$/, "Not a valid Git SHA");
+export const GitSha7 = z.string().regex(/^[0-9a-f]{7}$/, "Le sha Git est invalide");
 export type GitSha7 = UniqueString<z.infer<typeof GitSha7>>;
 
 export enum TemplateTypeEnum {
@@ -25,7 +25,7 @@ export const TemplateTypeShortName = {
   [TemplateTypeEnum.PolitiqueDeCookies]: "Cookies",
 } as const;
 
-export const TemplateType = z.nativeEnum(TemplateTypeEnum);
+export const TemplateType = z.nativeEnum(TemplateTypeEnum, { message: "Le type de template n'existe pas" });
 export type TemplateType = z.infer<typeof TemplateType>;
 
 export const TemplateMeta = z.object({

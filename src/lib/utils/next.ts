@@ -27,7 +27,7 @@ type PropValueAsObject<T, TPropName extends string, WithPartial extends boolean 
 
 type PropValueAsZod<T, TPropName extends string> = T extends z.ZodType
   ? {
-      [P in `${TPropName}Error`]?: z.typeToFlattenedError<T>;
+      [P in `${TPropName}Error`]?: z.typeToFlattenedError<z.infer<T>>;
     } & {
       [P in TPropName]: Promise<ClearObject<z.infer<T>>>;
     }

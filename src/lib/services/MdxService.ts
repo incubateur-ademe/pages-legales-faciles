@@ -28,6 +28,10 @@ export class MdxService implements Service {
     return content;
   }
 
+  public getFakeVariables(variables: SimpleObject<string>): SimpleObject<string> {
+    return Object.fromEntries(Object.entries(variables).map(([k]) => [k, `\\{\\{${k}\\}\\}`]));
+  }
+
   public async renderRawAsComponentWithFakeVariables(
     rawContent: string,
     variables?: SimpleObject<string>,
@@ -38,9 +42,7 @@ export class MdxService implements Service {
       usedVars = validateTemplateMeta(data).variables;
     }
 
-    const fakeVariables = Object.fromEntries(Object.entries(usedVars).map(([k]) => [k, `\\{\\{${k}\\}\\}`]));
-
-    return this.renderRawAsComponent(rawContent, fakeVariables);
+    return this.renderRawAsComponent(rawContent, this.getFakeVariables(usedVars));
   }
 
   public removeMetadataFromRaw(rawContent: string): string {

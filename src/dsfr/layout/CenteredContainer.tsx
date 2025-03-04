@@ -1,9 +1,15 @@
 import { Container, type ContainerProps } from "./Container";
 import { Grid, GridCol } from "./Grid";
 
-export const CenteredContainer = ({ children, ...rest }: ContainerProps) => (
+export type CenteredContainerProps = ContainerProps & {
+  /**
+   * For internal Grid
+   */
+  haveGutters?: boolean;
+};
+export const CenteredContainer = ({ children, haveGutters, ...rest }: CenteredContainerProps) => (
   <Container {...rest}>
-    <Grid align="center">
+    <Grid haveGutters={haveGutters} align="center">
       <GridCol md={10} lg={8}>
         {children}
       </GridCol>
